@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { AppShell } from '@skeletonlabs/skeleton';
+	import { SearchIcon } from 'lucide-svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -40,6 +41,19 @@
 		</section>
 
 		<section class="flex flex-col gap-4 pt-10">
+			<form action="?search" method="get" class="flex items-center gap-2">
+				<input
+					type="text"
+					name="term"
+					class="input variant-form-material"
+					placeholder="Term"
+					value={data.term}
+				/>
+				<button class="btn variant-form-material">
+					<SearchIcon />
+				</button>
+			</form>
+
 			{#each data.posts as job (job.id)}
 				<a href={job.link} class="card card-hover col-span-1 w-full h-full">
 					<div class="p-4 space-y-4">
