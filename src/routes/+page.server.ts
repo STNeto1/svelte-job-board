@@ -1,15 +1,27 @@
+import prisma from '$lib/prisma';
+import { fail, type Actions } from '@sveltejs/kit';
 
-import { fail, type Actions } from "@sveltejs/kit";
-import { auth } from "../lib/server/lucia";
-import type { PageServerLoad } from "./$types";
+import { auth } from '../lib/server/lucia';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
+
+	const posts = await prisma.job.findMany({
+		include: {
+			user: {
+				select: {
+					username: true
+				}
+			}
+		}
+	});
+
 	return {
-		user
+		user,
+		posts
 	};
 };
-
 
 export const actions: Actions = {
 	// signout

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import type { User } from 'lucia-auth';
+	import type { PageData } from './$types';
 
-	export let data: { user: User | null };
+	export let data: PageData;
 </script>
 
 <svelte:head>
@@ -37,6 +37,36 @@
 					</div>
 				</div>
 			{/if}
+		</section>
+
+		<section class="flex flex-col gap-4 pt-10">
+			{#each data.posts as job (job.id)}
+				<a href={job.link} class="card card-hover col-span-1 w-full h-full">
+					<div class="p-4 space-y-4">
+						<div class="flex items-center justify-between">
+							<h3 data-toc-ignore>{job.title}</h3>
+						</div>
+
+						<article>
+							<p>
+								{job.description}
+							</p>
+
+							<div class="flex flex-col gap-2 mt-4">
+								<div class="flex flex-col">
+									<span class="text-sm">Company</span>
+									<span class="text-sm font-bold">{job.company}</span>
+								</div>
+
+								<div class="flex flex-col">
+									<span class="text-sm">Location</span>
+									<span class="text-sm font-bold">{job.location ?? 'Not specified'}</span>
+								</div>
+							</div>
+						</article>
+					</div>
+				</a>
+			{/each}
 		</section>
 	</section>
 </AppShell>
