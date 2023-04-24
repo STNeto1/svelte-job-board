@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@fontsource/fira-mono': ^4.5.10
+  '@lucia-auth/adapter-prisma': ^2.0.0
   '@neoconfetti/svelte': ^1.0.0
   '@prisma/client': ^4.13.0
   '@sveltejs/adapter-auto': ^2.0.0
@@ -13,6 +14,7 @@ specifiers:
   eslint: ^8.28.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
+  lucia-auth: ^1.3.0
   postcss: ^8.4.23
   prettier: ^2.8.0
   prettier-plugin-svelte: ^2.8.1
@@ -23,9 +25,13 @@ specifiers:
   tslib: ^2.4.1
   typescript: ^5.0.0
   vite: ^4.3.0
+  zod: ^3.21.4
 
 dependencies:
+  '@lucia-auth/adapter-prisma': 2.0.0_3rsq3l2bwk4jlcko2hbn6i7vsu
   '@prisma/client': 4.13.0_prisma@4.13.0
+  lucia-auth: 1.3.0
+  zod: 3.21.4
 
 devDependencies:
   '@fontsource/fira-mono': 4.5.10
@@ -344,6 +350,16 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@lucia-auth/adapter-prisma/2.0.0_3rsq3l2bwk4jlcko2hbn6i7vsu:
+    resolution: {integrity: sha512-8qxEcoVNJDbK8zXzyMK/4SHnLTaih0oNjTfp7l4ndRg5WI+eMgP3N0OUGQVaq3C5N0iIfkXxgj/ZGH8ZidwVeQ==}
+    peerDependencies:
+      '@prisma/client': ^4.2.0
+      lucia-auth: ^1.3.0
+    dependencies:
+      '@prisma/client': 4.13.0_prisma@4.13.0
+      lucia-auth: 1.3.0
+    dev: false
 
   /@neoconfetti/svelte/1.0.0:
     resolution: {integrity: sha512-SmksyaJAdSlMa9cTidVSIqYo1qti+WTsviNDwgjNVm+KQ3DRP2Df9umDIzC4vCcpEYY+chQe0i2IKnLw03AT8Q==}
@@ -1329,6 +1345,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /lucia-auth/1.3.0:
+    resolution: {integrity: sha512-0sdMOFEapTy8FE9QJEdOe/tRiv7n0gP2so83WbRwJlPjfnA7e6k3YPKPXuxTC20AqmAMJeGiOkDPJk+d2/EaVg==}
+    dev: false
+
   /magic-string/0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
@@ -2119,3 +2139,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false
