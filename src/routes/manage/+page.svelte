@@ -1,10 +1,18 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { AppBar, AppShell, Tab, TabGroup } from '@skeletonlabs/skeleton';
+	import {
+		Accordion,
+		AccordionItem,
+		AppBar,
+		AppShell,
+		Tab,
+		TabGroup
+	} from '@skeletonlabs/skeleton';
 	import { ChevronLeftIcon } from 'lucide-svelte';
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
-	let currentTab: number = 1;
+	let currentTab: number = 0;
+	export let data: PageData;
 	export let form: ActionData;
 </script>
 
@@ -13,7 +21,7 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section class="container mx-auto max-w-2xl">
+<section class="container mx-auto max-w-6xl">
 	<AppShell>
 		<svelte:fragment slot="header">
 			<AppBar>
@@ -33,7 +41,36 @@
 
 			<svelte:fragment slot="panel">
 				{#if currentTab === 0}
-					(tab panel 1 contents)
+					<Accordion hover="hover:bg-primary-hover-token">
+						{#each data.posts as job (job.id)}
+							<AccordionItem>
+								<svelte:fragment slot="summary">{job.title}</svelte:fragment>
+								<svelte:fragment slot="content">
+									<div class="flex flex-col gap-2">
+										<div class="flex flex-col">
+											<span class="text-sm">Company</span>
+											<span class="text-sm font-bold">{job.company}</span>
+										</div>
+
+										<div class="flex flex-col">
+											<span class="text-sm">Description</span>
+											<span class="text-sm font-bold">{job.description}</span>
+										</div>
+
+										<div class="flex flex-col">
+											<span class="text-sm">Link</span>
+											<span class="text-sm font-bold">{job.link}</span>
+										</div>
+
+										<div class="flex flex-col">
+											<span class="text-sm">Location</span>
+											<span class="text-sm font-bold">{job.location ?? 'Not specified'}</span>
+										</div>
+									</div>
+								</svelte:fragment>
+							</AccordionItem>
+						{/each}
+					</Accordion>
 				{:else if currentTab === 1}
 					<form method="post" action="?/create" use:enhance class="-4 flex flex-col gap-3">
 						<!-- <h3 class="text-center">Create a new job post</h3> -->

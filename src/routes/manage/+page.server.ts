@@ -11,8 +11,14 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/sign-in');
 	}
 
+	const posts = await prisma.job.findMany({
+		where: {
+			authUserId: user.userId
+		}
+	})
+
 	return {
-		user
+		posts
 	};
 };
 
@@ -50,9 +56,6 @@ export const actions: Actions = {
 		});
 
 		if (!result.success) {
-			console.log(result.error.issues);
-
-
 			return fail(400, {
 				message: 'Invalid form data',
 				errors: {
