@@ -1,14 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import {
-		Accordion,
-		AccordionItem,
-		AppBar,
-		AppShell,
-		Tab,
-		TabGroup
-	} from '@skeletonlabs/skeleton';
-	import { ChevronLeftIcon } from 'lucide-svelte';
+	import { AppBar, AppShell, Tab, TabGroup } from '@skeletonlabs/skeleton';
+	import { ChevronLeftIcon, TrashIcon } from 'lucide-svelte';
 	import type { ActionData, PageData } from './$types';
 
 	let currentTab: number = 0;
@@ -41,36 +34,51 @@
 
 			<svelte:fragment slot="panel">
 				{#if currentTab === 0}
-					<Accordion hover="hover:bg-primary-hover-token">
+					<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 						{#each data.posts as job (job.id)}
-							<AccordionItem>
-								<svelte:fragment slot="summary">{job.title}</svelte:fragment>
-								<svelte:fragment slot="content">
-									<div class="flex flex-col gap-2">
-										<div class="flex flex-col">
-											<span class="text-sm">Company</span>
-											<span class="text-sm font-bold">{job.company}</span>
-										</div>
+							<div class="card card-hover col-span-1 w-full h-full">
+								<div class="p-4 space-y-4">
+									<div class="flex items-center justify-between">
+										<h3 data-toc-ignore>{job.title}</h3>
 
-										<div class="flex flex-col">
-											<span class="text-sm">Description</span>
-											<span class="text-sm font-bold">{job.description}</span>
-										</div>
+										<form method="post" action="?/delete" use:enhance>
+											<input type="hidden" name="id" value={job.id} />
 
-										<div class="flex flex-col">
-											<span class="text-sm">Link</span>
-											<span class="text-sm font-bold">{job.link}</span>
-										</div>
-
-										<div class="flex flex-col">
-											<span class="text-sm">Location</span>
-											<span class="text-sm font-bold">{job.location ?? 'Not specified'}</span>
-										</div>
+											<button
+												type="submit"
+												class="btn btn-sm variant-form-material variant-filled-error"
+											>
+												<TrashIcon size={16} />
+											</button>
+										</form>
 									</div>
-								</svelte:fragment>
-							</AccordionItem>
+
+									<article>
+										<p>
+											{job.description}
+										</p>
+
+										<div class="flex flex-col gap-2 mt-4">
+											<div class="flex flex-col">
+												<span class="text-sm">Company</span>
+												<span class="text-sm font-bold">{job.company}</span>
+											</div>
+
+											<div class="flex flex-col">
+												<span class="text-sm">Link</span>
+												<span class="text-sm font-bold">{job.link}</span>
+											</div>
+
+											<div class="flex flex-col">
+												<span class="text-sm">Location</span>
+												<span class="text-sm font-bold">{job.location ?? 'Not specified'}</span>
+											</div>
+										</div>
+									</article>
+								</div>
+							</div>
 						{/each}
-					</Accordion>
+					</section>
 				{:else if currentTab === 1}
 					<form method="post" action="?/create" use:enhance class="-4 flex flex-col gap-3">
 						<!-- <h3 class="text-center">Create a new job post</h3> -->
