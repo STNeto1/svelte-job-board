@@ -18,7 +18,9 @@ model Job {
   link        String
   company     String
   location    String?
-  remote      Boolean
+
+  user       AuthUser @relation(fields: [authUserId], references: [id])
+  authUserId String
 
   createdAt DateTime @default(now())
 }
@@ -30,6 +32,7 @@ model AuthUser {
   // here you can add custom fields for your user
   // e.g. name, email, username, roles, etc.
   username     String        @unique
+  jobs         Job[]
 
   @@map("auth_user")
 }

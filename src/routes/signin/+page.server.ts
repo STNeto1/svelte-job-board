@@ -6,9 +6,9 @@ import { LuciaError } from "lucia-auth";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const session = await locals.auth.validate();
-	if (session) throw redirect(302, "/");
-	return {};
+  const session = await locals.auth.validate();
+  if (session) throw redirect(302, "/");
+  return {};
 };
 
 const signInSchema = z.object({
@@ -17,7 +17,7 @@ const signInSchema = z.object({
 })
 
 export const actions: Actions = {
-  default: async ({request, locals}) => {
+  default: async ({ request, locals }) => {
     const form = await request.formData();
     const username = form.get("username");
     const password = form.get("password");
@@ -39,22 +39,22 @@ export const actions: Actions = {
 
     try {
       const key = await auth.useKey('username', result.data.username, result.data.password)
-    const session = await auth.createSession(key.userId)
-    locals.auth.setSession(session)
+      const session = await auth.createSession(key.userId)
+      locals.auth.setSession(session)
     } catch (error) {
       if (
-				error instanceof LuciaError &&
-				(error.message === 'AUTH_INVALID_KEY_ID' || error.message === 'AUTH_INVALID_PASSWORD')
-			) {
-				return fail(400, {
-					message: 'Incorrect username or password.'
-				});
-			}
-			// database connection error
-			console.error(error);
-			return fail(500, {
-				message: 'Unknown error occurred'
-			});
+        error instanceof LuciaError &&
+        (error.message === 'AUTH_INVALID_KEY_ID' || error.message === 'AUTH_INVALID_PASSWORD')
+      ) {
+        return fail(400, {
+          message: 'Incorrect username or password.'
+        });
+      }
+      // database connection error
+      console.error(error);
+      return fail(500, {
+        message: 'Unknown error occurred'
+      });
     }
   }
 };
