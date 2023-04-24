@@ -1,8 +1,20 @@
+const path = require('path')
+
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
-  theme: {
-    extend: {}
-  },
-  plugins: []
-};
+module.exports = {
+	darkMode: 'class',
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		path.join(require.resolve(
+			'@skeletonlabs/skeleton'),
+			'../**/*.{html,js,svelte,ts}'
+		)
+	],
+	theme: {
+		extend: {},
+	},
+	plugins: [
+		require('@tailwindcss/forms'),
+		...require('@skeletonlabs/skeleton/tailwind/skeleton.cjs')()
+	]
+}

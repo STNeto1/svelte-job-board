@@ -4,22 +4,46 @@
 	export let form: { message: string; errors?: Record<string, string> };
 </script>
 
-<div>
-	<h1>Create an account</h1>
+<section class="w-screen h-screen flex items-center justify-center">
+	<section class="flex flex-col gap-2 pt-10 shadow-md p-4">
+		<form method="post" use:enhance class="card p-4 flex flex-col gap-3">
+			<h3 class="text-center">Sign Up</h3>
 
-	<form method="post" use:enhance>
-		<label for="username">Username</label><br />
-		<input id="username" name="username" /><br />
-		{#if form?.errors?.username}<p class="error">{form.errors.username}</p>{/if}
+			<div class="flex flex-col gap-1">
+				<label class="label">
+					<span>Username</span>
+					<input class="input variant-form-material" type="text" name="username" required />
+				</label>
 
-		<label for="password">Password</label><br />
-		<input type="password" id="password" name="password" /><br />
-		{#if form?.errors?.password}<p class="error">{form.errors.password}</p>{/if}
+				{#if form?.errors?.username}<p class="error">{form.errors.username}</p>{/if}
+			</div>
 
-		{#if form?.message}
-			<p class="error">{form.message || ''}</p>
-		{/if}
+			<div class="flex flex-col gap-1 w-full">
+				<label class="label">
+					<span>Password</span>
+					<input class="input variant-form-material" type="password" name="password" required />
+				</label>
+				{#if form?.errors?.password}<p class="error">{form.errors.password}</p>{/if}
+			</div>
 
-		<input type="submit" value="Signup" />
-	</form>
-</div>
+			<div class="mt-2">
+				<button type="submit" class="btn variant-filled w-full variant-form-material"
+					>Sign In</button
+				>
+			</div>
+
+			{#if form?.message}
+				<aside class="alert variant-filled-error my-4">
+					<div class="alert-message">
+						<h4>Invalid request</h4>
+						<p>{form?.message}</p>
+					</div>
+				</aside>
+			{/if}
+
+			<div class="flex justify-center">
+				<a href="/signin">Already have an account? Sign in</a>
+			</div>
+		</form>
+	</section>
+</section>
